@@ -1,0 +1,1 @@
+https://github.com/krishnakumarsekar/awesome-quantum-machine-learning#quantumcomputing
