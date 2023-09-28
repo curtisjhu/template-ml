@@ -2,5 +2,7 @@ name: template-ml
 dependencies:
   - pytorch
   - torchvision
-  - torchsummary
+  - pip
+  - pip:
+    - torchsummary
 

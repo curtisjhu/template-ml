@@ -1,11 +1,15 @@
-from torch.utils.data import Dataset, Dataloader, sampler
-import torchvisions.datasets as datasts
-from torchsummary import summary
-import torchvisions.transforms as transforms
-
 import torch
 import torch.nn as nn
+from torch.utils.data import Dataset, sampler, DataLoader
+import torch.optim as optim
 
+import torchvision.datasets as datasets
+from torchsummary import summary
+import torchvision.transforms as transforms
+
+
+###### SETUP ########
+dtype = torch.float32
 if torch.cuda.is_available():
     device = torch.device("cuda")
 else:
@@ -16,7 +20,7 @@ print("Using device: ", device)
 #### DATASET #####
 batch_size = 32
 mnist_train = datasets.MNIST(".", download=True, train=True, transform=transforms.ToTensor())
-loader_train = Dataloader(mnist_train, batch_size=batch_size, sampler=sampler.SubsetRandomSampler(range(50000)))
+loader_train = DataLoader(mnist_train, batch_size=batch_size, sampler=sampler.SubsetRandomSampler(range(50000)))
 
 mnist_vals = datasets.MNIST('.', download = True, train = True, transform = transforms.ToTensor())
 loader_vals = DataLoader(mnist_vals, batch_size=batch_size, sampler=sampler.SubsetRandomSampler(range(50000, 60000)))
@@ -120,23 +124,24 @@ model = nn.Sequential(
     nn.Conv2d(16, 32, 5, 1, 2),
     nn.ReLU(),
     nn.MaxPool2d(2),
-    nn.Flatten(1, -1),
-    nn.Linear(32 * 7 * 7, 10)
+    nn.Flatten(),
+    nn.Linear(32 * 7 * 7, 10),
 )
 
-optimizer = optim.Adam(model.parameters(), lr = 0.01)
+optimizer = optim.Adam(model.parameters(), lr = 0.002)
 
 ###### DETAILS ON MODEL #######
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
 print("Parameters", count_parameters(model))
-summary(model)
+summary(model, (1, 28, 28))
 
 
 ######## TRAIN ########
 
 train(model, optimizer, loader_train, loader_vals, epochs=5, print_every=200)
 
-torch.save(model.state_dict(), ".")
+torch.save(model.state_dict(), "pytorch-model.pt")
 
