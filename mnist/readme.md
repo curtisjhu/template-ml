@@ -1,8 +1,8 @@
 ## Template MNIST
 
-Fundmentally, $ \text{data} \rightarrow \text{model} \rightarrow \text{training}  \rightarrow \text{testing} $
+Fundmentally, $ \text{data collection, cleaning, augmentation}  \rightarrow \text{training pipeline}  \rightarrow \text{testing pipeline} \rightarrow \text{model} $
 
-## Getting Started
+## Getting Started for PyTorch
 In your `template-ml` conda env:
 ```
 python pytorch.py
@@ -44,7 +44,12 @@ Params size (MB): 0.05
 Estimated Total Size (MB): 0.40
 ```
 
+In mathematical form:
+... how do you describe conv2d in math?
+
+
 ### PyTorch Model Iteration 2
 https://towardsdatascience.com/going-beyond-99-mnist-handwritten-digits-recognition-cfff96337392
 
 
+## Getting Started for Tensorflow
