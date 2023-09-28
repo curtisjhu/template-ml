@@ -3,6 +3,10 @@ dependencies:
   - pytorch
   - torchvision
   - pip
+  - tensorflow
   - pip:
     - torchsummary
+    - tensorflow_datasets
+    - cirq
+    - seaborn
 
