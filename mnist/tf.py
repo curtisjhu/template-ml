@@ -1,5 +1,7 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
+from tensorflow.keras.models import Model
+import os
 
 (ds_train, ds_test), ds_info = tfds.load(
     'mnist',
@@ -33,6 +35,14 @@ ds_test = ds_test.cache()
 ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
 
 
+#### CHECKPOINTS ######
+checkpoint_path = "tensorflow-training/cp.ckpt"
+checkpoint_dir = os.path.dirname(checkpoint_path)
+
+# Create a callback that saves the model's weights
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                 save_weights_only=True,
+                                                 verbose=1)
 
 ##### MODEL ######
 model = tf.keras.models.Sequential([
@@ -46,11 +56,19 @@ model.compile(
     metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
 )
 
-
+####### MODEL INFO ########
+print(model.summary())
 
 ####### TEST #########
 model.fit(
     ds_train,
-    epochs=6,
+    epochs=8,
     validation_data=ds_test,
+    callbacks=[cp_callback]
 )
+
+
+"""
+For continuation:
+model.load_weights(checkpoint_path)
+"""

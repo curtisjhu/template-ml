@@ -8,14 +8,12 @@ In your `template-ml` conda env:
 python pytorch.py
 ```
 
-### PyTorch Model Iteration 1
-
+### PyTorch Model
 
 MODEL | BATCHES | EPOCHS | ACCURACY
 --- | --- | --- | ---
 pytorch-model-1 | 32 | 5 | 98.98 %
 
-#### Image of output
 <img src="imgs/pytorch-model-1.png" alt="drawing" width="300"/>
 
 Model is a convolutional neural network with max pooling:
@@ -48,8 +46,39 @@ In mathematical form:
 ... how do you describe conv2d in math?
 
 
-### PyTorch Model Iteration 2
 https://towardsdatascience.com/going-beyond-99-mnist-handwritten-digits-recognition-cfff96337392
 
 
 ## Getting Started for Tensorflow
+
+In your `template-ml` conda env:
+```
+python tf.py
+```
+
+### Tensorflow Model
+
+MODEL | BATCHES | EPOCHS | ACCURACY
+--- | --- | --- | ---
+tf-model-1 | entire dataset | 8 | 98.98 %
+
+<img src="imgs/tf-model-1.png" alt="drawing" width="500"/>
+
+```
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten (Flatten)           (None, 784)               0         
+                                                                 
+ dense (Dense)               (None, 128)               100480    
+                                                                 
+ dense_1 (Dense)             (None, 10)                1290      
+                                                                 
+=================================================================
+Total params: 101,770
+Trainable params: 101,770
+Non-trainable params: 0
+_________________________________________________________________
+```
+
